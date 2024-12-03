@@ -86,6 +86,24 @@ def mark_in(task_id,mark):
             json.dump(data, file, indent=4)
     else:
         print("Error: Task file not found. Please add a task first.")
+
+def show_list(mark):
+    if os.path.exists(file_name):
+        with open(file_name, 'r') as file:
+            data = json.load(file)
+        num = 1
+        if mark == "all":
+            for task in data["tasks"]:
+                print(f"{num}. {task}")
+                num+=1
+        else:
+            for task in data["tasks"]:
+                if task["mark"] == mark:
+                    print(f"{num}. {task}")
+                    num+=1
+            
+    else:
+        print("Error: Task file not found. Please add a task first.")
     
 
 def tasks():
@@ -115,6 +133,12 @@ def tasks():
         elif parsed_input[0] =="mark-done":
             task_id = int(parsed_input[1])
             mark_in(task_id,"done")
+        
+        elif parsed_input[0] =="list":
+            if len(parsed_input) == 1:
+                show_list("all")
+            else:
+                show_list(parsed_input[1])
         
         elif parsed_input[0] == "exit":
             print("Exiting task CLI.")
