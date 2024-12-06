@@ -5,6 +5,28 @@ import shlex
 file_name = "tasks.json"
 id = 1
 
+def initialize_id():
+    """Initialize `id` to be the maximum ID in the JSON file + 1."""
+    global id
+    if os.path.exists(file_name):
+        with open(file_name, 'r') as file:
+            try:
+                data = json.load(file)
+            except json.JSONDecodeError:
+                # Handle empty or invalid JSON
+                data = {"tasks": []}
+        if data["tasks"]:
+            max_id = max(task["ID"] for task in data["tasks"])
+            id = max_id + 1
+            print(f"Initialized ID to {id} based on existing tasks.")
+            return id
+        else:
+            print("No tasks found in JSON file. Using default ID = 1.")
+            return id
+    else:
+        print("JSON file not found. Starting fresh with ID = 1.")
+        return id
+
 def add(task, mark):
     global id
     if os.path.exists(file_name):
@@ -16,7 +38,7 @@ def add(task, mark):
         id += 1
         with open(file_name, 'w') as file:
             json.dump(data, file, indent=4)
-        print("New task added:", {"description": task, "ID": id - 1, "mark": mark})
+        print("New task added:",  {"ID": id - 1})
     else:
         data = {
             "tasks": [{"description": task, "ID": id, "mark": mark}]
@@ -107,6 +129,7 @@ def show_list(mark):
     
 
 def tasks():
+    initialize_id()
     while True:
         user_input = input("task-cli> ")  # Takes input as a string
         parsed_input = shlex.split(user_input)
@@ -146,5 +169,6 @@ def tasks():
         
         else:
             print("Unknown command. Available commands: add, update, exit.")
-
-tasks()
+            
+if __name__ == "__main__":
+    tasks()
