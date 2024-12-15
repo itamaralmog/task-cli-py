@@ -1,7 +1,7 @@
 import os
 import json
 import pytest
-from task_cli import add, update, delete_task, mark_in, show_list, initialize_id, file_name
+from task_cli import add, update, delete_task, mark_in, show_list, initialize_id, file_name, init
 
 # Fixture for setup and teardown
 @pytest.fixture(scope="function", autouse=True)
@@ -140,9 +140,6 @@ def test_add_multiple_tasks():
     assert tasks[1]["description"] == "Task 2", "Second task description should match"
 
 def test_update_marked_task():
-    data = {"tasks": []}
-    with open(file_name, 'w') as file:
-            json.dump(data, file, indent=4)
     initialize_id()
     add("Task to Mark and Update", "todo")
     mark_in(12, "in-progress")
