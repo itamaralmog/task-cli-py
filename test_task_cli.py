@@ -1,7 +1,7 @@
 import os
 import json
 import pytest
-from task_cli import add, update, delete_task, mark_in, show_list, initialize_id, file_name, init
+from task_cli import add, update, delete_task, mark_in, show_list, initialize_id, file_name
 
 # Fixture for setup and teardown
 @pytest.fixture(scope="function", autouse=True)
