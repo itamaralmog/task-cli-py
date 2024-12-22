@@ -10,4 +10,49 @@ lib
 
 task-cli
 test_task-cli
+packages-microsoft-prod.deb
 
+# Ignore Visual Studio files and build outputs
+.vs/
+*.user
+*.suo
+
+# Ignore Rider/JetBrains IDE files
+.idea/
+*.iml
+
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore .NET-specific files
+*.dll
+*.exe
+*.pdb
+*.log
+*.cache
+*.config
+*.csproj.user
+
+# Ignore test results
+TestResults/
+*.trx
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore JSON data files (optional, if tasks.json is only for local use)
+tasks.json
+
+# Ignore other user-specific or temporary files
+*.tmp
+*.bak
+*.swp
+*.lock
+*.log
+
+# Ignore npm/node_modules (if there's a frontend)
+node_modules/
+package-lock.json
+yarn.lock
